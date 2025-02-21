@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 
 // como ta baseado no Main do comeco do periodo talvez precise de mudanca
 public class Main {
+    
     private int miss;
     private int hit;
     public static void main(String[] args) {
