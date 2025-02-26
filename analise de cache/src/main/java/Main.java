@@ -1,23 +1,21 @@
-package main.java;
-
+import fifo.FIFOCache;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-// como ta baseado no Main do comeco do periodo talvez precise de mudanca
+// como ta baseado no java.Main do comeco do periodo talvez precise de mudanca
 public class Main {
     
-    private int miss;
-    private int hit;
+//    private int miss;
+//    private int hit;
     public static void main(String[] args) {
-        this.hit = 0;
-        this.miss = 0;
+        int hit = 0;
+        int miss = 0;
 
 
         //ter 3 main um para cada politica ou colocar os 3 aqui?
 
-//        FIFOCache fifoCache = new FIFOCache(100);
+        FIFOCache fifoCache = new FIFOCache();
 
         // Caminho para o arquivo de tráfego gerado pelo TRAGEN
         //preciso mudar o codigo para cada carga ou consigo botar para ler o diretorio

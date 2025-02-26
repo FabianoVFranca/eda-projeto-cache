@@ -1,4 +1,4 @@
-package main.java.lfu.dll;
+package lfu.dll;
 
 import java.util.HashMap;
 

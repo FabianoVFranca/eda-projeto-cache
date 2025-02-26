@@ -1,4 +1,4 @@
-package main.java.lru;
+package lru;
 
 public class LRUCache {
 }

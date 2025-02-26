@@ -1,4 +1,4 @@
-package main.java.lfu.linkedhash;
+package lfu.linkedhash;
 
 import java.util.*;
 
