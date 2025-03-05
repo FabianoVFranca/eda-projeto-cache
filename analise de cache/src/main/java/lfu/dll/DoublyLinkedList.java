@@ -28,9 +28,11 @@ public class DoublyLinkedList<K, V> {
         if (this.head.next == this.tail) {
             return null;
         }
-        
         Node<K, V> last = this.tail.prev;
         remove(last);
         return last;
+    }
+    private boolean isEmpty(){
+        return head.next == tail;
     }
 }

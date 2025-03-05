@@ -3,7 +3,7 @@ package lfu.dll;
 import java.util.HashMap;
 
 public class LFUCache<K, V> {
-    
+
     private final int capacity;  // capacidade do cache
     private int minFreq;  // mantém a menor frequência de uso 
     private HashMap<K, Node<K, V>> cache;  // mapeia a chave ao nó que contem a chave e o valor
@@ -20,7 +20,7 @@ public class LFUCache<K, V> {
 
     public V get(K key) {
         if (this.cache.containsKey(key)) {
-            Node<K, V> cacheHit = this.cache.get(key); 
+            Node<K, V> cacheHit = this.cache.get(key);
             updateFreq(cacheHit);
             return cacheHit.value;  // o elemento requisitado está no cache, cache hit
         }
@@ -55,13 +55,13 @@ public class LFUCache<K, V> {
         }
     }
 
-    
+
     private void removeLFU() {
         DoublyLinkedList<K, V> list = this.freqMap.get(this.minFreq);
 
         // Remove the least recently used node from the list (tail's previous node)
         Node<K, V> node = list.removeLast();
-        
+
         if (node != null) {
             this.cache.remove(node.key);
         }
@@ -85,4 +85,14 @@ public class LFUCache<K, V> {
         }
         this.freqMap.get(node.freq).addToFront(node);
     }
+
+    @Override
+    public String toString() {
+        String out = "CACHE:\n";
+        for(HashMap.Entry< K, Node<K, V>> entry : cache.entrySet()){
+            out += entry.getKey() + " -> " + entry.getValue().value + " - freq :"+  entry.getValue().freq + "\n";
+        }
+        return out;
+    }
+
 }
