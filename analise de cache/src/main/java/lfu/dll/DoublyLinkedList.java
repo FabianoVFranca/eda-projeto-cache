@@ -32,7 +32,4 @@ public class DoublyLinkedList<K, V> {
         remove(last);
         return last;
     }
-    private boolean isEmpty(){
-        return head.next == tail;
-    }
 }
