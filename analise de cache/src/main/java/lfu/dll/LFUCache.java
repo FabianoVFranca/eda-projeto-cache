@@ -90,7 +90,7 @@ public class LFUCache<K, V> {
     public String toString() {
         String out = "CACHE:\n";
         for(HashMap.Entry< K, Node<K, V>> entry : cache.entrySet()){
-            out += entry.getKey() + " -> " + entry.getValue().value + " - freq :"+  entry.getValue().freq + "\n";
+            out += entry.getKey() + " -> " + entry.getValue().value + " - freq:"+  entry.getValue().freq + "\n";
         }
         return out;
     }
