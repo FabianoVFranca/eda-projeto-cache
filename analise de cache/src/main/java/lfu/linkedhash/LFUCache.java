@@ -33,7 +33,7 @@ public class LFUCache < K,V >{
         if (!cache.containsKey(key)){
             return null;
         }
-        atualizaFrequencia(key);
+        updateFreq(key);
 
         return cache.get(key);
 
@@ -45,11 +45,11 @@ public class LFUCache < K,V >{
         // se a chave existe eu preciso adicionar o novo valor associado a ela no cache.
         if(cache.containsKey(key)){
             cache.put(key, Value);
-            atualizaFrequencia(key);
+            updateFreq(key);
             return;
         }
         if (cache.size() >= capacity){
-            excluirItem();
+            removeItem();
         }
         // adiciona o k,v no cache 
         cache.put(key,Value);
@@ -58,12 +58,12 @@ public class LFUCache < K,V >{
         frequency.put(key,1);
 
         // verifico se 1 existe no grupo de frequencia
-        existeFrequencia(1,key);
+        containsFreq(1,key);
         minFrequency = 1;
 
     }
 
-    private void existeFrequencia(int i,K key){
+    private void containsFreq(int i,K key){
         
         if(!frequencyGroups.containsKey(i)){
             frequencyGroups.put(i, new LinkedHashSet<K>());
@@ -71,41 +71,40 @@ public class LFUCache < K,V >{
         frequencyGroups.get(i).add(key);
     }
 
-    private void atualizaFrequencia(K key) {
-        int frequencia =  frequency.get(key);
+    private void updateFreq(K key) {
+        int freq =  frequency.get(key);
         
         // incremento o valor diretamente no hashMap de frequencia
-        frequency.put(key, frequencia + 1);
+        frequency.put(key, freq + 1);
         
         // remove do grupo de frequencia anterior a chave
-        frequencyGroups.get(frequencia).remove(key);
+        frequencyGroups.get(freq).remove(key);
 
         // se minha frequencia for a menor, e meu grupo de frequencia estiver vazio para a frequencia anterior 
         // eu adiciono 1 na menor frequencia e removo ela do grupo de frequencia
-        if (frequencia == minFrequency && frequencyGroups.get(frequencia).isEmpty()) {
-            frequencyGroups.remove(frequencia);
+        if (freq == minFrequency && frequencyGroups.get(freq).isEmpty()) {
+            frequencyGroups.remove(freq);
             minFrequency++;
         }
-        existeFrequencia(frequencia + 1, key);
+        containsFreq(freq + 1, key);
     }
 
-    private void excluirItem() {
+    private void removeItem() {
 
         // pega o linkedHashSet associado a menor frequencia:
-        LinkedHashSet<K> grupoMenorFrequencia = frequencyGroups.get(minFrequency); 
+        LinkedHashSet<K> lowerFreqGrup = frequencyGroups.get(minFrequency);
         // leastFreqGroup
 
         // utiliza o linkedHashSet anterior para verificar qual foi o primeiro adicionado, não aceita acesso indexado
-        K chaveRemovida = grupoMenorFrequencia.iterator().next();
+        K removeKey = lowerFreqGrup.iterator().next();
 
-        grupoMenorFrequencia.remove(chaveRemovida);
+        lowerFreqGrup.remove(removeKey);
         
-        if (grupoMenorFrequencia.isEmpty()){
-            // eu preciso tratar alguma coisa aqui ?
+        if (lowerFreqGrup.isEmpty()){
             frequencyGroups.remove(minFrequency);
 
         }
-        cache.remove(chaveRemovida);
-        frequency.remove(chaveRemovida);
+        cache.remove(removeKey);
+        frequency.remove(removeKey);
     }
 }

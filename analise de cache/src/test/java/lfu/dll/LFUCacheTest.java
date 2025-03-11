@@ -55,12 +55,13 @@ class LFUCacheTest {
         cache.put(2, "B");
         cache.put(3, "C");
 
-        // aumento de frequencias
+        //aumento de frequencias
         cache.get(1);
         cache.get(2);
         cache.get(1);
 
         cache.put(4, "D");
+
 
         // Chave 3 deve ter sido removida
         assertNull(cache.get(3));
