@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 import main.java.fifo.FIFOCache;
 import main.java.lfu.LFUCache;
 import main.java.lru.LRUCache;
@@ -18,7 +17,6 @@ public class Main {
         public static void main(String[] args) {
             hit = 0;
             miss = 0;
-
         
         int tamanhoCache = 100;
         // isso daqui nao existe ta, vai ser so o da seu cache, quando for testar colocar o tamanho do array inicializado no parametro
@@ -57,7 +55,7 @@ public class Main {
                     
                     hit++;
                     writer.write(" hit");
-                }else{
+                } else {
                     
                     miss++;
                     writer.write(" miss");
