@@ -1,64 +1,83 @@
-import fifo.FIFOCache;
+package main.java;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
-// como ta baseado no java.Main do comeco do periodo talvez precise de mudanca
+import main.java.fifo.FIFOCache;
+import main.java.lfu.LFUCache;
+import main.java.lru.LRUCache;
+
+// como ta baseado no Main do comeco do periodo talvez precise de mudanca
 public class Main {
-    
-//    private int miss;
-//    private int hit;
-    public static void main(String[] args) {
-        int hit = 0;
-        int miss = 0;
-
-
-        //ter 3 main um para cada politica ou colocar os 3 aqui?
-
-        FIFOCache fifoCache = new FIFOCache();
+    private static int miss;
+    private static int hit;
+        public static void main(String[] args) {
+            hit = 0;
+            miss = 0;
+        
+        int tamanhoCache = 100;
+        // isso daqui nao existe ta, vai ser so o da seu cache, quando for testar colocar o tamanho do array inicializado no parametro
+        FIFOCache cache = new FIFOCache(tamanhoCache);
+        LFUCache cache2 = new LFUCache();
+        LRUCache cache3 = new LRUCache();
 
         // Caminho para o arquivo de tráfego gerado pelo TRAGEN
         //preciso mudar o codigo para cada carga ou consigo botar para ler o diretorio
-        String traceFile = "caminho dos OutPuts que a gente vai usar";
 
+        String traceFile = "eda-projeto-cache\\analise de cache\\Dados\\gen_sequence.txt";
+        
+        //lembrar de trocar o path pra cada projeto
+        String outPutFile = "eda-projeto-cache\\analise de cache\\Dados\\dadosSaida.txt";
 
         try {
 
             //deixar System.in ou o caminho ja no arquivo?
+
             BufferedReader reader = new BufferedReader(new FileReader(traceFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile));
             String line = "";
-            //UMASS documentacao -> Each request in the trace is comma seperated list of timestamp, object_id, and object_size (in KB).
-            System.out.println("timestamp object_id object_size");
+           
+            //UMASS documentacao -> Each request in the trace is comma seperated list of timestamp, object_id, and object_size (in KB). 
+            //ai pega so o segundo index que é o object_id
+            
+            writer.write("Element|TimeAdd");
             while ((line = reader.readLine()) != null) {
 
+                String[] element = line.split(",");
                 long startAddElement = System.nanoTime();
-//                fifoCache.add(line);
+                
+                writer.write(element[1]);
+                
+                if(cache.put(element[1])){
+                    
+                    hit++;
+                    writer.write(" hit");
+                } else {
+                    
+                    miss++;
+                    writer.write(" miss");
+                }
+
                 long endAddElement = System.nanoTime();
 
-                long startContainsElement = System.nanoTime();
-//                if(fifoCache.contains(line)){
-//                    this.hit++;
-//                }else{
-//                    this.miss++;
-//                };
-                long endContainsElement = System.nanoTime();
-
                 long timeAddElement = endAddElement - startAddElement;
-                long timeContainsElement = endContainsElement -  startContainsElement;
+               
+                writer.write(timeAddElement + "\n");
 
-                //Mudar isso, apenas teste de raciocinio
-                //Guardar em um arquivo?
-                //faz mais sentido o end estar fora do while acho
-                System.out.println("tempo add Elemento : " + timeAddElement);
-                System.out.println("tempo contains Elemento : " + timeContainsElement);
             }
 
+            //isso pode ficar em outro arquivo se pa, era mais facil so deixar em virugla ne filha
+            writer.write("Total Hits|Total Misses|HitRatio| \n");
+            int hitRatio = (hit)/(hit + miss);
+            writer.write(hit+ "|" + miss + "|" + hitRatio + "\n");
+            writer.write("Cache Content:\n" + cache.toString());
 
-//            System.out.println("Hit ratio: " + this.hit/(this.hit + this.miss));
-            System.out.println("Conteúdo do Cache:\n" + fifoCache.toString());
 
-            // botar taxa hit/miss?
-            // avaliar a taxa de hit e miss a cada elemento ( faz sentido)?
+
+            // avaliar a taxa de hit e miss a cada elemento (faz sentido)?
 
         } catch (IOException ioe) {
 
