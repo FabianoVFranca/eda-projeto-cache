@@ -8,7 +8,8 @@ import fifo.Cache;
 import fifo.FIFOCache;
 import fifo.EvictionStrategy;
 
-
+// tem que importar os outros nao fiz pq nao sabia direito se tava pronto ai tava quebrando e apaguei
+//tentar randomizar os caches que estao sequenciais
 public class Main {
     private static int miss;
     private static int hit;
@@ -24,7 +25,7 @@ public class Main {
         String cacheType = args[0].toUpperCase(); 
         int tamanhoCache = Integer.parseInt(args[1]);
         
-
+        //mudar o caminho tb
         String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_sequence.txt";
 
         // Caminho para o arquivo de saída
@@ -52,7 +53,7 @@ public class Main {
              BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile))) {
 
             // Escreve o cabeçalho no arquivo de saída
-            writer.write("Element|TimeAdd|Resultado\n");
+           
             
             String line;
             while ((line = reader.readLine()) != null) {
@@ -60,18 +61,14 @@ public class Main {
                 // Formato: timestamp, object_id, object_size
                 String[] element = line.split(",");
                 String objectId = element[1]; 
-
-                // Mede o tempo de adição do elemento ao cache
-                long startAddElement = System.nanoTime();
-
-                
+        
                 if (strategy.get(objectId)) {
                     hit++; 
-                    //writer.write(objectId + "|" + (System.nanoTime() - startAddElement) + "|hit\n");
+                    
                 } else {
                     miss++; // Cache miss
                     strategy.add(objectId); 
-                    //writer.write(objectId + "|" + (System.nanoTime() - startAddElement) + "|miss\n");
+                   
                 }
             }
             
