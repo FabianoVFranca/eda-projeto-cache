@@ -1,4 +1,4 @@
-package java.lru;
+package lru;
 
 import java.util.HashMap;
 

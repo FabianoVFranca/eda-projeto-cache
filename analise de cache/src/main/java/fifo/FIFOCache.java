@@ -1,23 +1,22 @@
 package fifo;
-
+import java.util.Arrays;
 
 
 // ta me incomodando esse generic
-public class FIFOCache<T> {
-    private T[] cache;       
-    private int capacity;   
-    private int head;       
-    private int tail;        
-    private int size;               
+public class FIFOCache<T> implements Cache<T> {
+    private T[] cache;       // Array para armazenar os elementos
+    private int capacity;    // Capacidade máxima do cache
+    private int head;        // Índice do primeiro elemento
+    private int tail;        // Índice do último elemento
+    private int size;        // Tamanho atual do cache
 
     public FIFOCache(int capacity) {
         this.capacity = capacity;
-        this.cache = (T[]) new Object[capacity]; 
+        this.cache = (T[]) new Object[capacity];
         this.head = -1;
         this.tail = -1;
         this.size = 0;
     }
-
     
     private boolean isEmpty() {
         return head == -1 && tail == -1;
@@ -28,53 +27,53 @@ public class FIFOCache<T> {
         return size == capacity;
     }
 
-    
-    public boolean put(T item) {
-        
-        if(this.get(item)){
-            return true;
-        }
-
-        if (isFull()) {
-            
-            removeFirst();
-        }
-
+    @Override
+    public void put(T element) {
         if (isEmpty()) {
             
             this.head = 0;
             this.tail = 0;
         } else {
-    
             this.tail = (this.tail + 1) % this.capacity;
         }
 
-        this.cache[this.tail] = item;
+        this.cache[this.tail] = element;
         this.size++;
-        return false;
+        
     }
 
-    
-    public boolean get(T item) {
-        if (isEmpty()) {
+    @Override
+    public boolean get(T element) {
+        if(isEmpty()){
+            put(element);
             return false;
         }
 
+        if (isFull()) {
+            evict();
+            put(element);
+            return false;
+            
+        }
+        //busca elemento na lista
         int i = this.head;
         while (true) {
-            if (cache[i] != null && cache[i].equals(item)) {
-                
-                return true;
-            }
+            
+            if (cache[i] != null && cache[i].equals(element)) return true;
+            
             if (i == this.tail) break;
+
             i = (i + 1) % this.capacity;
         }
 
+        put(element);
         return false;
+
     }
 
-    
-    private T removeFirst() {
+
+    @Override
+    public T evict() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Cache vazio.");
         }
@@ -93,5 +92,9 @@ public class FIFOCache<T> {
         return removedItem;
     }
 
+    @Override
+    public int size() {
+        return this.size;
+    }
 
 }

@@ -1,86 +1,92 @@
-package main.java;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import main.java.fifo.FIFOCache;
-import main.java.lfu.LFUCache;
-import main.java.lru.LRUCache;
+import fifo.Cache;
+import fifo.FIFOCache;
+import fifo.EvictionStrategy;
 
-// como ta baseado no Main do comeco do periodo talvez precise de mudanca
+
 public class Main {
     private static int miss;
     private static int hit;
-        public static void main(String[] args) {
-            hit = 0;
-            miss = 0;
+
+    public static void main(String[] args) {
+        // Verifica se os argumentos tao certos
+        if (args.length < 2) {
+            System.out.println("Uso: java Main <tipo_cache> <tamanho_cache>");
+            return;
+        }
+
+        //recebe da linha de comando os args        
+        String cacheType = args[0].toUpperCase(); 
+        int tamanhoCache = Integer.parseInt(args[1]);
         
-        int tamanhoCache = 100;
-        // isso daqui nao existe ta, vai ser so o da seu cache, quando for testar colocar o tamanho do array inicializado no parametro
-        FIFOCache cache = new FIFOCache(tamanhoCache);
-        LFUCache cache2 = new LFUCache();
-        LRUCache cache3 = new LRUCache();
 
-        // Caminho para o arquivo de tráfego gerado pelo TRAGEN
-        //preciso mudar o codigo para cada carga ou consigo botar para ler o diretorio
+        String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_sequence.txt";
 
-        String traceFile = "eda-projeto-cache\\analise de cache\\Dados\\gen_sequence.txt";
-        
-        //lembrar de trocar o path pra cada projeto
-        String outPutFile = "eda-projeto-cache\\analise de cache\\Dados\\dadosSaida.txt";
+        // Caminho para o arquivo de saída
+        String outPutFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/dadosSaida.txt";
 
-        try {
 
-            //deixar System.in ou o caminho ja no arquivo?
-
-            BufferedReader reader = new BufferedReader(new FileReader(traceFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile));
-            String line = "";
-           
-            //UMASS documentacao -> Each request in the trace is comma seperated list of timestamp, object_id, and object_size (in KB). 
-            //ai pega so o segundo index que é o object_id
+        // tem que implementar a interface do LFU e LRU
+        Cache<String> cache;
+        switch (cacheType) {
+            case "FIFO":
+                cache = new FIFOCache<>(tamanhoCache);
+                break;
             
-            writer.write("Element|TimeAdd");
+            default:
+                System.out.println("Tipo de cache inválido. Use FIFO, LFU ou LRU.");
+                return;
+        }
+
+        hit = 0;
+        miss = 0;
+        EvictionStrategy strategy = new EvictionStrategy<>(cache);
+
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(traceFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile))) {
+
+            // Escreve o cabeçalho no arquivo de saída
+            writer.write("Element|TimeAdd|Resultado\n");
+            
+            String line;
             while ((line = reader.readLine()) != null) {
-
-                String[] element = line.split(",");
-                long startAddElement = System.nanoTime();
-                
-                writer.write(element[1]);
-                
-                if(cache.put(element[1])){
-                    
-                    hit++;
-                    writer.write(" hit");
-                } else {
-                    
-                    miss++;
-                    writer.write(" miss");
-                }
-
-                long endAddElement = System.nanoTime();
-
-                long timeAddElement = endAddElement - startAddElement;
                
-                writer.write(timeAddElement + "\n");
+                // Formato: timestamp, object_id, object_size
+                String[] element = line.split(",");
+                String objectId = element[1]; 
 
+                // Mede o tempo de adição do elemento ao cache
+                long startAddElement = System.nanoTime();
+
+                
+                if (strategy.get(objectId)) {
+                    hit++; 
+                    //writer.write(objectId + "|" + (System.nanoTime() - startAddElement) + "|hit\n");
+                } else {
+                    miss++; // Cache miss
+                    strategy.add(objectId); 
+                    //writer.write(objectId + "|" + (System.nanoTime() - startAddElement) + "|miss\n");
+                }
             }
+            
+            int hitRatio =  hit / (hit + miss);
 
-            //isso pode ficar em outro arquivo se pa, era mais facil so deixar em virugla ne filha
-            writer.write("Total Hits|Total Misses|HitRatio| \n");
-            int hitRatio = (hit)/(hit + miss);
-            writer.write(hit+ "|" + miss + "|" + hitRatio + "\n");
-            writer.write("Cache Content:\n" + cache.toString());
+            
+            writer.write("\nTamanho do Cache | Total Hits|Total Misses|HitRatio\n");
+            writer.write(tamanhoCache+"|" + hit +"|" + miss + "|" + hitRatio + "\n");
 
-
-
-            // avaliar a taxa de hit e miss a cada elemento (faz sentido)?
-
+            // Escreve o conteúdo final do cache no arquivo de saída, nao sei se quero isso
+            writer.write("\nCache Content:\n");
+            // tem que printar o conteudo do cache
+            writer.write(cacheType.toString());
         } catch (IOException ioe) {
-
+            ioe.printStackTrace();
         }
     }
 }
