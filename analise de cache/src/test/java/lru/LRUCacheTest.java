@@ -20,14 +20,15 @@ class LRUCacheTest {
         cache.put(3, "C");
         cache.put(4, "D");
 
-        // verifica se o para voleres iguais remoção respeita a ordem de inserção .
+        // // verifica se o para valores iguais remoção respeita a ordem de inserção .
         assertNull(cache.get(1));
         assertNull(cache.get(2));
 
-        assertEquals("C", cache.get(3)); // Chave 1 ainda deve estar presente
+        assertEquals("C", cache.get(3)); 
         assertEquals("D", cache.get(4));
 
     }
+
     @Test
     public void TestNullOperations() {
 
@@ -47,7 +48,7 @@ class LRUCacheTest {
     }
 
     @Test
-    public void testLFURemove() {
+    public void testLRUEvicition() {
        LRUCache<Integer, String> cache = new LRUCache<>(3);
         cache.put(1, "A");
         cache.put(2, "B");
@@ -84,7 +85,7 @@ class LRUCacheTest {
         cache.put(1, "A");
         cache.put(2, "B");
 
-        cache.put(3, "C"); // Como 1 e 2 têm a mesma frequência, o mais antigo (1) deve ser removido
+        cache.put(3, "C");
 
         assertNull(cache.get(1));
         assertEquals("B", cache.get(2));

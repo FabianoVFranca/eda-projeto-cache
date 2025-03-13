@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import cacheinterface.*;
-import fifo.*;
+// import fifo.*;
 import lfu.dll.*;
 import lru.*;
 
@@ -36,9 +36,9 @@ public class Main {
         // tem que implementar a interface do LFU e LRU
         CacheAlgorithm<String, String> cache;
         switch (cacheType) {
-            case "FIFO":
-                cache = new FIFOCache<>(tamanhoCache);
-                break;
+            // case "FIFO":
+            //     cache = new FIFOCache<>(tamanhoCache);
+            //     break;
             case "LFU":
                 cache = new LFUCache<>(tamanhoCache);
                 break;
@@ -73,7 +73,7 @@ public class Main {
                     hit++;
                 } else {
                     miss++; // Cache miss
-                    strategy.put(objectId, object); 
+                    strategy.put(objectId, object);
                 }
             }
             

@@ -26,25 +26,24 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
         this.tail.prev = this.head;
     }
 
-    // método responsável por adicionar um nó à dll
-    public void addNode(Node<K, V> node) {
-        node.next = this.head.next;
-        node.prev = this.head;
-        this.head.next.prev = node;
-        this.head.next = node;
+    // método responsável por adicionar um nó à dll no fim
+    public void addLast(Node<K, V> node) {
+        node.prev = this.tail.prev;
+        node.next = this.tail;
+        node.prev.next = node;
+        this.tail.prev = node;
     }
 
     // método responsável por remover um nó da dll
     public void removeNode(Node<K, V> node) {
-        // é necessário melhorar esse código no quesito legibilidade?
         node.next.prev = node.prev;
         node.prev.next = node.next;
     }
 
     // método responsável de mover o dado mais usado para frente
-    public void moveMostRecentlyUsedNode(Node<K, V> node) {
+    public void moveToTail(Node<K, V> node) {
         removeNode(node);
-        addNode(node);
+        addLast(node);
     }
 
     // verifica se o dado procurado está no cache
@@ -53,7 +52,7 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
         if (this.cache.containsKey(key)) {
             // caso no qual houve um cache hit e temos que mover o nó para frente.
             Node<K, V> node = this.cache.get(key);
-            moveMostRecentlyUsedNode(node); // move o nó para frente da dll
+            moveToTail(node); // move o nó para moveToTail da dll
             return node.value;
         }
         // já nesse caso, houve um cache miss, pois não achamos aquela chave no cache.
@@ -68,7 +67,7 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
             // como o dado já se encontra no cache, temos que atualizar sua frequência
             Node<K, V> node = this.cache.get(key);
             node.value = value;  // atualiza o valor do nó
-            moveMostRecentlyUsedNode(node); // move o nó para frente da dll
+            moveToTail(node); // move o nó para o final da dll
         } else {
             // verifica se a capacidade do cache foi atingida
             if (this.cache.size() == capacity) {
@@ -79,14 +78,14 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
             // caso tenha espaço, é possível só adicionar direto
             Node<K, V> newNode = new Node<>(key, value);
             this.cache.put(key, newNode);
-            addNode(newNode);
+            addLast(newNode);
         }
     }
 
     @Override
     public void eviction() {
         // capacidade máxima atingida e nó LRU é removido do cache para que o novo nó possa ser adicionado
-        Node<K, V> leastRecentlyUsed = this.tail.prev;
+        Node<K, V> leastRecentlyUsed = this.head.next;
         removeNode(leastRecentlyUsed);
         this.cache.remove(leastRecentlyUsed.key);
     }
