@@ -5,16 +5,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import cacheinterface.*;
-import fifo.*;
-import lfu.dll.*;
-import lru.*;
+import cacheinterface.CacheAlgorithm;
+import fifo.FIFOCache;
+import lfu.dll.LFUCache;
+import lru.LRUCache;
 
 // tem que importar os outros nao fiz pq nao sabia direito se tava pronto ai tava quebrando e apaguei
 //tentar randomizar os caches que estao sequenciais
 public class Main {
-    private static int miss;
-    private static int hit;
+    private   int miss;
+    private  int hit;
 
     public static void main(String[] args) {
         // Verifica se os argumentos tao certos
@@ -23,6 +23,8 @@ public class Main {
             return;
         }
 
+        int hit = 0;
+        int miss = 0;
         //recebe da linha de comando os args        
         String cacheType = args[0].toUpperCase(); 
         int tamanhoCache = Integer.parseInt(args[1]);
@@ -54,8 +56,6 @@ public class Main {
                 return;
         }
 
-        hit = 0;
-        miss = 0;
         
         CacheEvictionStrategy<String, String> strategy = new CacheEvictionStrategy<>(cache);
 
@@ -83,10 +83,13 @@ public class Main {
                     strategy.put(objectId, object);
                 }
             }
-            
-            int hitRatio =  hit / (hit + miss);
+            double divide = hit + miss; 
+            double hitRatio = (divide == 0) ? 0 : (double) hit / divide; 
 
-            writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatio + "\n");
+            // Formatação do hitRatio para exibir como porcentagem
+            String hitRatioFormatted = String.format("%.2f", hitRatio * 100); // Multiplica por 100 para exibir como porcentagem
+
+            writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatioFormatted + "\n");
 
             // Escreve o conteúdo final do cache no arquivo de saída, nao sei se quero isso
             //writer.write("\nCache Content:\n");
@@ -98,4 +101,3 @@ public class Main {
         }
     }
 }
-
