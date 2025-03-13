@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,12 +29,14 @@ public class Main {
         
         //mudar o caminho tb
         String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_sequence.txt";
-        File file = new File(outPutFile);
-        boolean isFileEmpty = !file.exists() || file.length() == 0;
+        
+        
         // Caminho para o arquivo de saída
         String outPutFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/dadosSaida.txt";
 
-
+        File file = new File(outPutFile);
+        boolean isFileEmpty = !file.exists() || file.length() == 0;
+        
         // tem que implementar a interface do LFU e LRU
         CacheAlgorithm<String, String> cache;
         switch (cacheType) {
