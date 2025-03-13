@@ -28,7 +28,8 @@ public class Main {
         
         //mudar o caminho tb
         String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_sequence.txt";
-
+        File file = new File(outPutFile);
+        boolean isFileEmpty = !file.exists() || file.length() == 0;
         // Caminho para o arquivo de saída
         String outPutFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/dadosSaida.txt";
 
@@ -56,9 +57,12 @@ public class Main {
         CacheEvictionStrategy<String, String> strategy = new CacheEvictionStrategy<>(cache);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(traceFile));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile))) {
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile,true))) {
 
-            // Escreve o cabeçalho no arquivo de saída
+        
+            if (isFileEmpty) {
+                writer.write("Tamanho do Cache | Total Hits | Total Misses | HitRatio\n");
+            }
            
             
             String line;
@@ -79,14 +83,12 @@ public class Main {
             
             int hitRatio =  hit / (hit + miss);
 
-            
-            writer.write("\nTamanho do Cache | Total Hits | Total Misses | HitRatio\n");
             writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatio + "\n");
 
             // Escreve o conteúdo final do cache no arquivo de saída, nao sei se quero isso
-            writer.write("\nCache Content:\n");
+            //writer.write("\nCache Content:\n");
             // tem que printar o conteudo do cache
-            writer.write(cacheType.toString());
+            //writer.write(cacheType.toString());
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
