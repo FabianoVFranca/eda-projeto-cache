@@ -1,14 +1,10 @@
-package fifo;
+package java.fifo;
 
+import java.cacheinterface.CacheAlgorithm;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import cacheinterface.CacheAlgorithm;
-
-public class FIFOCache<K, V> implements CacheAlgorithm<K, V> {
+public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
     private V[] cache;       // Array para armazenar os elementos
     private int capacity;    // Capacidade máxima do cache
     private int head;        // Índice do primeiro elemento
@@ -19,21 +15,20 @@ public class FIFOCache<K, V> implements CacheAlgorithm<K, V> {
     public FIFOCache(int capacity) {
         this.capacity = capacity;
         this.cache = (V[]) new Object[capacity];
-        this.head = 0;  // Inicializa head como 0
-        this.tail = -1; // Inicializa tail como -1 (cache vazio)
+        this.head = -1;
+        this.tail = -1;
         this.size = 0;
         this.mapSearch = new LinkedHashMap<>();
     }
 
     private boolean isEmpty() {
-        return this.size == 0;
+        return head == -1 && tail == -1;
     }
 
     private boolean isFull() {
-        return this.size == capacity;
+        return size == capacity;
     }
 
-    
     public int size() {
         return this.size;
     }
