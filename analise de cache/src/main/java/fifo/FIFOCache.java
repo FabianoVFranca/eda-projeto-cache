@@ -1,8 +1,9 @@
-package java.fifo;
+package fifo;
 
-import java.cacheinterface.CacheAlgorithm;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import cacheinterface.CacheAlgorithm;
 
 // ta me incomodando esse generic
 public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
@@ -70,16 +71,13 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
         
         V removedItem = this.cache[this.head];
         
-        // so pensei em fazer pelo mapEntry vai pegar cada entrada nodas entradas e comparar o valor, como pega o primeiro acho que da certo
-        // for (Map.Entry<K, V> entry : mapSearch.entrySet()) {
-        //     if (entry.getValue().equals(removedItem)) {
-        //         mapSearch.remove(entry.getKey());
-        //         break;
-        //     }
-        // }
+        for (Map.Entry<K, V> entry : mapSearch.entrySet()) {
+            if (entry.getValue().equals(removedItem)) {
+                mapSearch.remove(entry.getKey());
+                break;
+            }
+        }
         if(!mapSearch.isEmpty()){
-            
-            
             mapSearch.remove(removedItem);
         }
         
