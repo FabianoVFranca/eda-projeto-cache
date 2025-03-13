@@ -1,6 +1,6 @@
-package lfu.dll;
+package java.lfu.dll;
 
-import cacheinterface.CacheAlgorithm;
+import java.cacheinterface.CacheAlgorithm;
 import java.util.HashMap;
 
 

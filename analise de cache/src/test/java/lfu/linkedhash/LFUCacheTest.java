@@ -1,6 +1,5 @@
-package lfu.linkedhash;
+package java.lfu.linkedhash;
 
-import lfu.dll.LFUCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class LFUCacheTest {
-    private lfu.dll.LFUCache<Integer, String> cache;
+    private LFUCache<Integer, String> cache;
 
     @BeforeEach
     void setUp(){
-        cache = new lfu.dll.LFUCache<>(2);
+        cache = new LFUCache<>(2);
     }
 
     @Test
@@ -51,7 +50,7 @@ class LFUCacheTest {
 
     @Test
     public void testLFURemove() {
-        lfu.dll.LFUCache<Integer, String> cache = new lfu.dll.LFUCache<>(3);
+        LFUCache<Integer, String> cache = new LFUCache<>(3);
         cache.put(1, "A");
         cache.put(2, "B");
         cache.put(3, "C");
@@ -83,7 +82,7 @@ class LFUCacheTest {
 
     @Test
     public void testSameFrequency() {
-        lfu.dll.LFUCache<Integer, String> cache = new lfu.dll.LFUCache<>(2);
+        LFUCache<Integer, String> cache = new LFUCache<>(2);
         cache.put(1, "A");
         cache.put(2, "B");
 
@@ -96,7 +95,7 @@ class LFUCacheTest {
 
     @Test
     public void testSingleElementCache() {
-        lfu.dll.LFUCache<Integer, String> cache = new LFUCache<>(1);
+        LFUCache<Integer, String> cache = new LFUCache<>(1);
         cache.put(1, "A");
         cache.put(2, "B"); // Deve remover 1 para inserir 2
 

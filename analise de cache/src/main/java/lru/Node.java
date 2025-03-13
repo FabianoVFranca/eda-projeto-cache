@@ -1,4 +1,4 @@
-package lru;
+package java.lru;
 
 /*
 O objetivo dessa classe é criar e armazenar informações importantes para a doubly linked list

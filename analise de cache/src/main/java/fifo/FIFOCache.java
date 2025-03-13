@@ -3,6 +3,9 @@ package fifo;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import cacheinterface.CacheAlgorithm;
 
 public class FIFOCache<K, V> implements CacheAlgorithm<K, V> {
