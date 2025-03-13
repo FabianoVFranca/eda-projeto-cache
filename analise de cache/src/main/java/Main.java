@@ -1,3 +1,5 @@
+package java;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -5,10 +7,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import cacheinterface.CacheAlgorithm;
-import fifo.FIFOCache;
-import lfu.dll.LFUCache;
-import lru.LRUCache;
+import java.cacheinterface.CacheAlgorithm;
+import java.fifo.FIFOCache;
+import java.lfu.dll.LFUCache;
+import java.lru.LRUCache;
+
 
 // tem que importar os outros nao fiz pq nao sabia direito se tava pronto ai tava quebrando e apaguei
 //tentar randomizar os caches que estao sequenciais
