@@ -22,7 +22,7 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
         this.head = -1;
         this.tail = -1;
         this.size = 0;
-        this.mapSearch = new HashMap<>();
+        this.mapSearch = new LinkedHashMap<>();
     }
     
     private boolean isEmpty() {
@@ -73,12 +73,18 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
         V removedItem = this.cache[this.head];
         
         // so pensei em fazer pelo mapEntry vai pegar cada entrada nodas entradas e comparar o valor, como pega o primeiro acho que da certo
-        for (Map.Entry<K, V> entry : mapSearch.entrySet()) {
-            if (entry.getValue().equals(removedItem)) {
-                mapSearch.remove(entry.getKey());
-                break;
-            }
+        // for (Map.Entry<K, V> entry : mapSearch.entrySet()) {
+        //     if (entry.getValue().equals(removedItem)) {
+        //         mapSearch.remove(entry.getKey());
+        //         break;
+        //     }
+        // }
+        if(!mapSearch.isEmpty()){
+            
+            
+            mapSearch.remove(removedItem);
         }
+        
         if (this.head == this.tail) {
                     
             this.head = -1;
