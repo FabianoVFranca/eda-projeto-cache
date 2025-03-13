@@ -1,12 +1,20 @@
-# Implementação de diferentes políticas de Cache e comparação e análise da eficiência entre elas
+# Análise Comparativa de Políticas de Cache: Implementação e Avaliação de Eficiência
+
+# Introdução
+O cache é uma memória de rápido acesso, mas sua capacidade de armazenamento é limitada devido a restrições de custo. Quando é necessário remover um objeto do cache para adicionar um novo, a política de cache eviction define qual elemento será excluído, determinando a lógica de substituição dos dados armazenados.
+Existem diversas políticas de cache, cada uma com regras específicas para decidir quais dados devem ser removidos. Este projeto tem como objetivo a implementação de três políticas de cache (FIFO, LFU e LRU) e a comparação de sua eficiência em um mesmo cenário.
 
 ## First In First Out (FIFO)
-- FIFO, que significa "First In, First Out" é uma estrutura de dados onde o primeiro elemento inserido é o primeiro a ser removido.
+- FIFO, que significa "First In, First Out"  é uma política de substituição de cache na qual o primeiro item inserido no cache é o primeiro a ser removido.
+- Funciona como uma fila: os dados são adicionados no final e removidos do início.
 
 ## Least Frequently Used (LFU)
-- LFU, que significa "Least Frequently Used" é um algoritmo de substituição de cache que remove o item menos acessado com menor frequência de uso.
+- LFU, que significa "Least Frequently Used" é uma política de substituição de cache que remove o item menos recentemente acessado.
+- Cada item no cache tem um contador que registra quantas vezes foi acessado.
+- Quando o cache atinge sua capacidade, o item com a menor contagem de acessos é removido.
 
 ## Least Reacently Used (LRU)
-- LRU, que significa "Least Recently Used", é uma estrutura de dados de gerenciamento de cache que é amplamente utilizada em sistemas de computação para otimizar o uso de memória. 
-- O princípio fundamental do LRU é que ele mantém os dados que foram acessados recentemente e descarta aqueles que não foram utilizados por um período mais longo.
+- LRU, que significa "Least Recently Used", é uma ma política de substituição que remove o item menos recentemente acessado.
+- Mantém um registro da ordem de acesso dos itens no cache.
+- Quando um novo dado precisa ser armazenado, o item que não foi utilizado há mais tempo é removido.
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
