@@ -1,10 +1,9 @@
 package fifo;
 
-import cacheinterface.CacheAlgorithm;
-
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import cacheinterface.CacheAlgorithm;
 
 // ta me incomodando esse generic
 public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
@@ -80,8 +79,6 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
         //     }
         // }
         if(!mapSearch.isEmpty()){
-            
-            
             mapSearch.remove(removedItem);
         }
         
