@@ -1,8 +1,8 @@
-package java.lfu.dll;
+package lfu.dll;
 
-import java.cacheinterface.CacheAlgorithm;
+import cacheinterface.CacheAlgorithm;
+
 import java.util.HashMap;
-
 
 public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
 
@@ -93,7 +93,7 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
     @Override
     public String toString() {
         String out = "CACHE:\n";
-        for(HashMap.Entry< K, Node<K, V>> entry : cache.entrySet()){
+        for (HashMap.Entry< K, Node<K, V>> entry : cache.entrySet()){
             out += entry.getKey() + " -> " + entry.getValue().value + " - freq:"+  entry.getValue().freq + "\n";
         }
         return out;

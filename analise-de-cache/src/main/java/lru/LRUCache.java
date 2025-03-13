@@ -1,6 +1,7 @@
-package java.lru;
+package lru;
 
-import java.cacheinterface.CacheAlgorithm;
+import cacheinterface.CacheAlgorithm;
+
 import java.util.HashMap;
 
 /*

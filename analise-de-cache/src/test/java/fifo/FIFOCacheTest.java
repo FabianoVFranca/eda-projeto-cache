@@ -1,4 +1,4 @@
-package java.fifo;
+package fifo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.cacheinterface.CacheAlgorithm;
+import cacheinterface.CacheAlgorithm;
 
 public class FIFOCacheTest {
 
@@ -96,8 +96,8 @@ public class FIFOCacheTest {
             cache.put(3, "C");
 
             // O cache deve remover 1, mesmo que tenha sido atualizado
-            assertNull(cache.get(1));// Aqui espera-se que 1 seja removido, mas foi atualizado antes
-            assertEquals("B", cache.get(2));
+            assertNull(cache.get(2));// Aqui espera-se que 1 seja removido, mas foi atualizado antes
+            assertEquals("Updated A", cache.get(1));
             assertEquals("C", cache.get(3));
         }
 

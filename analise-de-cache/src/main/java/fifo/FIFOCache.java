@@ -1,8 +1,8 @@
-package java.fifo;
+package fifo;
 
-import java.cacheinterface.CacheAlgorithm;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import cacheinterface.CacheAlgorithm;
+
+import java.util.*;
 
 public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
     private V[] cache;       // Array para armazenar os elementos
@@ -44,6 +44,10 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
             eviction();
         }
 
+        if (isEmpty()) {
+            this.head = (this.head + 1) % this.capacity;
+        }
+
         // Atualiza tail
         this.tail = (this.tail + 1) % this.capacity;
         this.cache[this.tail] = value;
@@ -58,8 +62,13 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
         }
 
         // Remove o item mais antigo (head)
-        V removedItem = cache[head];
-        mapSearch.values().remove(removedItem);
+        V removedItem = cache[this.head];
+
+        Iterator<Map.Entry<K, V>> iterator = mapSearch.entrySet().iterator();
+        if (iterator.hasNext()) {
+            Map.Entry<K, V> entry = iterator.next();
+            iterator.remove();
+        }
 
         // Atualiza head
         this.head = (this.head + 1) % this.capacity;

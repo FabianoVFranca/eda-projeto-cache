@@ -1,4 +1,4 @@
-package java.cacheinterface;
+package cacheinterface;
 
 public interface CacheAlgorithm<K, V> {
     

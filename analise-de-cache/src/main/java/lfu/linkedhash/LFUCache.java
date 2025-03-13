@@ -1,6 +1,6 @@
-package java.lfu.linkedhash;
+package lfu.linkedhash;
 
-import java.cacheinterface.CacheAlgorithm;
+import cacheinterface.CacheAlgorithm;
 import java.util.*;
 
 public class LFUCache< K,V > implements CacheAlgorithm<K, V> {
