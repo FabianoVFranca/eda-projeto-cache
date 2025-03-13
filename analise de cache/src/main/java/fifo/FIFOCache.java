@@ -1,9 +1,7 @@
-package fifo;
+package java.fifo;
 
-import cacheinterface.CacheAlgorithm;
-
-import java.util.Arrays;
-import java.util.HashMap;
+import java.cacheinterface.CacheAlgorithm;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 // ta me incomodando esse generic

@@ -1,4 +1,4 @@
-package lfu.dll;
+package java.lfu.dll;
 
 public class DoublyLinkedList<K, V> {
     

@@ -1,4 +1,6 @@
-import cacheinterface.CacheAlgorithm;
+package java;
+
+import java.cacheinterface.CacheAlgorithm;
 
 public class CacheEvictionStrategy<K, V> {
     

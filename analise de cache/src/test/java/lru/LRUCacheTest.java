@@ -1,7 +1,9 @@
-package lru;
+package java.lru;
 
-import cacheinterface.CacheAlgorithm;
 import org.junit.jupiter.api.*;
+
+import java.cacheinterface.CacheAlgorithm;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LRUCacheTest {
