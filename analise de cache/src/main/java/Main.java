@@ -30,11 +30,11 @@ public class Main {
         int tamanhoCache = Integer.parseInt(args[1]);
         
         //mudar o caminho tb
-        String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_sequence.txt";
+        String traceFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/gen_seq_rand.txt";
         
         
         // Caminho para o arquivo de saída
-        String outPutFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/dadosSaida.txt";
+        String outPutFile = "/home/fabiano.victor.franca.araujo/EDA_LEDA/eda-projeto-cache/analise de cache/Dados/dadosSaida2.txt";
 
         File file = new File(outPutFile);
         boolean isFileEmpty = !file.exists() || file.length() == 0;
