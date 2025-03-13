@@ -1,8 +1,10 @@
 package lfu.dll;
 
+import cacheinterface.CacheAlgorithm;
 import java.util.HashMap;
 
-public class LFUCache<K, V> {
+
+public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
 
     private final int capacity;  // capacidade do cache
     private int minFreq;  // mantém a menor frequência de uso 
@@ -18,6 +20,7 @@ public class LFUCache<K, V> {
         this.freqMap = new HashMap<>();
     }
 
+    @Override
     public V get(K key) {
         if (this.cache.containsKey(key)) {
             Node<K, V> cacheHit = this.cache.get(key);
@@ -28,6 +31,7 @@ public class LFUCache<K, V> {
         return null;  // o elemento buscado não está no cache, cache miss
     }
 
+    @Override
     public void put(K key, V value) {
         // atualiza o valor e a frequencia do nó
         if (cache.containsKey(key)) {
@@ -37,7 +41,7 @@ public class LFUCache<K, V> {
         } else {
             // se o cache tiver cheio, remove-se o elemento de menor frequência 
             if (this.cache.size() == this.capacity) {
-                removeLFU();
+                eviction();
             }
 
             // cria-se um novo nó para adicionar no cache
@@ -55,8 +59,8 @@ public class LFUCache<K, V> {
         }
     }
 
-
-    private void removeLFU() {
+    @Override
+    public void eviction() {
         DoublyLinkedList<K, V> list = this.freqMap.get(this.minFreq);
 
         // Remove the least recently used node from the list (tail's previous node)

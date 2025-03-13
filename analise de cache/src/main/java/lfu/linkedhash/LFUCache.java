@@ -2,7 +2,9 @@ package lfu.linkedhash;
 
 import java.util.*;
 
-public class LFUCache < K,V >{
+import cacheinterface.CacheAlgorithm;
+
+public class LFUCache< K,V > implements CacheAlgorithm<K, V> {
 
     // Limita o tamanho do cache.
     private int capacity;
@@ -27,10 +29,11 @@ public class LFUCache < K,V >{
         this.minFrequency = 0;
     }
 
+    @Override
     public V get(K key) {
 
         // verifica se o objeto existe no cache
-        if (!cache.containsKey(key)){
+        if (!cache.containsKey(key)) {
             return null;
         }
         updateFreq(key);
@@ -39,17 +42,18 @@ public class LFUCache < K,V >{
 
     }
 
-    public void put(K key,V Value){
+    @Override
+    public void put(K key,V Value) {
         if(capacity == 0) return;
 
         // se a chave existe eu preciso adicionar o novo valor associado a ela no cache.
-        if(cache.containsKey(key)){
+        if(cache.containsKey(key)) {
             cache.put(key, Value);
             updateFreq(key);
             return;
         }
-        if (cache.size() >= capacity){
-            removeItem();
+        if (cache.size() >= capacity) {
+            eviction();
         }
         // adiciona o k,v no cache 
         cache.put(key,Value);
@@ -63,9 +67,9 @@ public class LFUCache < K,V >{
 
     }
 
-    private void containsFreq(int i,K key){
+    private void containsFreq(int i,K key) {
         
-        if(!frequencyGroups.containsKey(i)){
+        if(!frequencyGroups.containsKey(i)) {
             frequencyGroups.put(i, new LinkedHashSet<K>());
         }
         frequencyGroups.get(i).add(key);
@@ -89,7 +93,8 @@ public class LFUCache < K,V >{
         containsFreq(freq + 1, key);
     }
 
-    private void removeItem() {
+    @Override
+    public void eviction() {
 
         // pega o linkedHashSet associado a menor frequencia:
         LinkedHashSet<K> lowerFreqGrup = frequencyGroups.get(minFrequency);

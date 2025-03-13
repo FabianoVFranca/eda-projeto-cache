@@ -1,12 +1,13 @@
 package lru;
 
+import cacheinterface.CacheAlgorithm;
 import java.util.HashMap;
 
 /*
  * Implementação do Least Recently Used Cache usando Doubly Linked List e HashMap.
  */
 
-public class LRUCache<K, V> {
+public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
 
     private final int capacity; // capacidade do cache
     private final HashMap<K, Node<K, V>> cache; // mapa que armazena o dado (key) e o nó no qual esse dado se encontra (value)
@@ -47,6 +48,7 @@ public class LRUCache<K, V> {
     }
 
     // verifica se o dado procurado está no cache
+    @Override
     public V get(K key) {
         if (this.cache.containsKey(key)) {
             // caso no qual houve um cache hit e temos que mover o nó para frente.
@@ -59,6 +61,7 @@ public class LRUCache<K, V> {
     }
 
     // esse método é responsável por adicionar/remover ou mover nós baseado em cache hit or miss
+    @Override
     public void put(K key, V value) {
 
         if (this.cache.containsKey(key)) {
@@ -69,11 +72,7 @@ public class LRUCache<K, V> {
         } else {
             // verifica se a capacidade do cache foi atingida
             if (this.cache.size() == capacity) {
-
-                // capacidade máxima atingida e nó LRU é removido do cache para que o novo nó possa ser adicionado
-                Node<K, V> leastRecentlyUsed = this.tail.prev;
-                removeNode(leastRecentlyUsed);
-                this.cache.remove(leastRecentlyUsed.key);
+                eviction();
             }
             // criamos um novo nó e adicionamos-o ao cache, já que
             // se o cache estivesse cheio, o nó LFU teria sido removido e
@@ -82,6 +81,14 @@ public class LRUCache<K, V> {
             this.cache.put(key, newNode);
             addNode(newNode);
         }
+    }
+
+    @Override
+    public void eviction() {
+        // capacidade máxima atingida e nó LRU é removido do cache para que o novo nó possa ser adicionado
+        Node<K, V> leastRecentlyUsed = this.tail.prev;
+        removeNode(leastRecentlyUsed);
+        this.cache.remove(leastRecentlyUsed.key);
     }
 
     // apenas para melhor visualização do cache!!!

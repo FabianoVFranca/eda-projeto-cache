@@ -4,9 +4,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import fifo.Cache;
-import fifo.FIFOCache;
-import fifo.EvictionStrategy;
+import cacheinterface.*;
+import fifo.*;
+import lfu.dll.*;
+import lru.*;
 
 // tem que importar os outros nao fiz pq nao sabia direito se tava pronto ai tava quebrando e apaguei
 //tentar randomizar os caches que estao sequenciais
@@ -33,12 +34,17 @@ public class Main {
 
 
         // tem que implementar a interface do LFU e LRU
-        Cache<String> cache;
+        CacheAlgorithm<String, String> cache;
         switch (cacheType) {
             case "FIFO":
                 cache = new FIFOCache<>(tamanhoCache);
                 break;
-            
+            case "LFU":
+                cache = new LFUCache<>(tamanhoCache);
+                break;
+            case "LRU":
+                cache = new LRUCache<>(tamanhoCache);
+                break;
             default:
                 System.out.println("Tipo de cache inválido. Use FIFO, LFU ou LRU.");
                 return;
@@ -46,8 +52,8 @@ public class Main {
 
         hit = 0;
         miss = 0;
-        EvictionStrategy strategy = new EvictionStrategy<>(cache);
-
+        
+        CacheEvictionStrategy<String, String> strategy = new CacheEvictionStrategy<>(cache);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(traceFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile))) {
@@ -61,27 +67,27 @@ public class Main {
                 // Formato: timestamp, object_id, object_size
                 String[] element = line.split(",");
                 String objectId = element[1]; 
+                String object = element[2]; 
         
                 if (strategy.get(objectId)) {
-                    hit++; 
-                    
+                    hit++;
                 } else {
                     miss++; // Cache miss
-                    strategy.add(objectId); 
-                   
+                    strategy.put(objectId, object); 
                 }
             }
             
             int hitRatio =  hit / (hit + miss);
 
             
-            writer.write("\nTamanho do Cache | Total Hits|Total Misses|HitRatio\n");
-            writer.write(tamanhoCache+"|" + hit +"|" + miss + "|" + hitRatio + "\n");
+            writer.write("\nTamanho do Cache | Total Hits | Total Misses | HitRatio\n");
+            writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatio + "\n");
 
             // Escreve o conteúdo final do cache no arquivo de saída, nao sei se quero isso
             writer.write("\nCache Content:\n");
             // tem que printar o conteudo do cache
             writer.write(cacheType.toString());
+
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

@@ -1,9 +1,10 @@
 package fifo;
+
+import cacheinterface.CacheAlgorithm;
 import java.util.Arrays;
 
-
 // ta me incomodando esse generic
-public class FIFOCache<T> implements Cache<T> {
+public class FIFOCache<T> implements CacheAlgorithm<K, V> {
     private T[] cache;       // Array para armazenar os elementos
     private int capacity;    // Capacidade máxima do cache
     private int head;        // Índice do primeiro elemento
@@ -42,7 +43,7 @@ public class FIFOCache<T> implements Cache<T> {
         
     }
 
-    @Override
+    // @Override
     public boolean get(T element) {
         if(isEmpty()){
             put(element);
@@ -50,7 +51,7 @@ public class FIFOCache<T> implements Cache<T> {
         }
 
         if (isFull()) {
-            evict();
+            eviction();
             put(element);
             return false;
             
@@ -73,7 +74,7 @@ public class FIFOCache<T> implements Cache<T> {
 
 
     @Override
-    public T evict() {
+    public T eviction() {
         if (isEmpty()) {
             throw new IllegalArgumentException("Cache vazio.");
         }
@@ -92,7 +93,7 @@ public class FIFOCache<T> implements Cache<T> {
         return removedItem;
     }
 
-    @Override
+    // @Override
     public int size() {
         return this.size;
     }

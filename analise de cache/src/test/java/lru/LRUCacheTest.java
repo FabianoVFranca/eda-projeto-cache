@@ -1,14 +1,15 @@
-package java.lru;
+package lru;
 
+import cacheinterface.CacheAlgorithm;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LRUCacheTest {
-    private LRUCache cache;
+    private CacheAlgorithm<Integer, String> cache;
 
     @BeforeEach
     void setUp(){
-        cache = new LRUCache(2);
+        cache = new LRUCache<>(2);
     }
 
     @Test
