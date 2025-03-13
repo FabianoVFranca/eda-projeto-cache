@@ -22,7 +22,7 @@ class LRUCacheTest {
         cache.put(3, "C");
         cache.put(4, "D");
 
-        // // verifica se o para valores iguais remoção respeita a ordem de inserção .
+        // // verifica se para valores iguais remoção respeita a ordem de inserção .
         assertNull(cache.get(1));
         assertNull(cache.get(2));
 
@@ -32,7 +32,7 @@ class LRUCacheTest {
     }
 
     @Test
-    public void TestNullOperations() {
+    public void testNullOperations() {
 
         // verifica a existencia antes de adicionar e depois se está no cache;
         assertNull(cache.get(1));
