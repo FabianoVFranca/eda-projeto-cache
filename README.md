@@ -18,3 +18,6 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Mantém um registro da ordem de acesso dos itens no cache.
 - Quando um novo dado precisa ser armazenado, o item que não foi utilizado há mais tempo é removido.
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
+
+  
+Esse repositório está organizado da seguinte forma:
