@@ -21,3 +21,54 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
   
 Esse repositório está organizado da seguinte forma:
+``
+├── analise-de-cache
+│   ├── dados
+│   │   ├── dadosSaida.txt
+│   │   ├── dadosSaida2.txt
+│   │   ├── dadosSeqRand.txt
+│   │   ├── gen_graficos.py
+│   │   ├── gen_seq_rand.txt
+│   │   └── gen_sequence.txt
+│   ├── graficos
+│   │   └── grafico_de_comparacao.png
+│   ├── src
+│   │   └── main
+│   │   │  └── java
+│   │   │      ├── cacheinterface
+│   │   │      │   └── CacheAlgorithm.java
+│   │   │      ├── fifo
+│   │   │      │   └── FIFOCache.java
+│   │   │      ├── lfu
+│   │   │      │   ├── dll
+│   │   │      │   │   ├── DoublyLinkedList.java
+│   │   │      │   │   ├── LFUCache.java
+│   │   │      │   │   └── Node.java
+│   │   │      │   └── linkedhash
+│   │   │      │       └── LFUCache.java
+│   │   │      ├── lru
+│   │   │      │   ├── LRUCache.java
+│   │   │      │   └── Node.java
+│   │   │      ├── Main.java
+│   │   │      └── CacheEvictionStrategy.java
+│   │   └── test
+│   │      └── java
+│   │          ├── fifo
+│   │          │   └── FIFOCacheTest.java
+│   │          ├── lfu
+│   │          │   ├── dll
+│   │          │   │   └── LFUCacheTest.java
+│   │          │   └── linkedhash
+│   │          │       └── LFUCacheTest.java
+│   │          └── lru
+│   │              └── LRUCacheTest.java
+│   ├── .gitattributes
+│   ├── build.gradle
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── projeto-cache.iml
+│   └── settings.gradle.kts
+├── .gitignore
+├── README.md
+└── eda-projeto-cache.iml
+``
