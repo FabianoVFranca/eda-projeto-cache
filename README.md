@@ -21,7 +21,8 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
   
 Esse repositório está organizado da seguinte forma:
-
+```txt
+.
 ├── analise-de-cache
 │   ├── dados
 │   │   ├── dadosSaida.txt
@@ -71,3 +72,4 @@ Esse repositório está organizado da seguinte forma:
 ├── .gitignore
 ├── README.md
 └── eda-projeto-cache.iml
+```
