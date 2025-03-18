@@ -19,6 +19,16 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Quando um novo dado precisa ser armazenado, o item que não foi utilizado há mais tempo é removido.
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
 
+## Explicação sobre organização do experimento:
+- Temos a carga gerada em dois arquivos : gen_Seq.txt que é a carga criada sequencialmente e gen_seq_rand.txt que é a mesma carga mas com as linhas de entrada randomizadas
+- Os dados de saida estão em dadosSaida.txt equivalendo ao gen_Seq.txt onde o hitRatio desdo começo é maior pela formatação dos dados e dadosSaida2.txt gerado a partir de  gen_seq_rand.txt usada para o plot do grafico pois o corportamento da taxa de hitRatio consegue ser interpretada melhor
+- O gráfico está no diretorio gráficos com o nome gráfico_de_comparação
+- Dentro de src temos :
+  - CacheAlgorithm sendo a implementação da interface Cache para abstrair a lógica para o cacheEviction 
+  - CacheEvictionStrategy que é chamado pelo main para conseguir a leitura do miss e hit independente do tipo de cache
+  - Main recebe a entrada de dados e chama o CacheEvictionStrategy e escreve os dados de saida em um novo arquivo
+  - as 3 implementações dos algoritmos que implementam CacheAlgorithm
+  - testes para as 3 implementações
   
 ### Esse repositório está organizado da seguinte forma:
 ```txt
