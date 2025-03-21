@@ -1,16 +1,18 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
-
+# import os
 # print(f"Diretório atual: {os.getcwd()}")
 
-df = pd.read_csv("dados/dadosSaida2.txt", sep="|")
-df.columns = df.columns.str.strip()
-df['HitRatio'] = df['HitRatio'].str.replace(',', '.').astype(float)
+df = pd.read_csv("dadosSaida2.txt", sep="|")
 
-df_lfu = df.iloc[1:10].astype(float)
-df_lru = df.iloc[11:20].astype(float)
-df_fifo = df.iloc[21:30].astype(float)
+df.columns = df.columns.str.strip()
+
+df['HitRatio'] = df['HitRatio'].str.replace(',', '.').astype(float)
+df["Tamanho do Cache"] = df["Tamanho do Cache"].astype(float)
+
+df_lfu = df[df["Tipo do Cache"] == "LFU"]
+df_lru = df[df["Tipo do Cache"] == "LRU"]
+df_fifo = df[df["Tipo do Cache"] == "FIFO"]
 
 plt.figure(figsize=(10, 6))
 plt.plot(df_lfu['Tamanho do Cache'], df_lfu['HitRatio'], marker='o', label='LFU')
@@ -21,7 +23,7 @@ plt.xlabel("Tamanho do Cache")
 plt.ylabel("Hit Ratio (%)")
 plt.legend()
 plt.grid(True)
-plt.savefig('graficos/grafico_de_comparacao', dpi=300, bbox_inches='tight')
+plt.savefig('../graficos/test.png', dpi=300, bbox_inches='tight')
 plt.show()
 plt.close()
 
