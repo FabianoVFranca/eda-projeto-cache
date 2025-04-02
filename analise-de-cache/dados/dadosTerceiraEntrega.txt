@@ -1,0 +1,2 @@
+Tamanho do Cache|Total Hits|Total Misses|HitRatio|Tipo do Cache
+1|2|149998|0,00|FIFO

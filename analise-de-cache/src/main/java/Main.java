@@ -23,13 +23,17 @@ public class Main {
         int miss = 0;
         String cacheType = args[0].toUpperCase();  // Recebe da linha de comando os args
         int tamanhoCache = Integer.parseInt(args[1]);
-        
-        String traceFile = System.getProperty("user.dir") + "/dados/gen_seq_rand.txt";
-        String outPutFile = System.getProperty("user.dir") + "/dados/dadosSaida2.txt";
+
+        String traceFile = new File("../../../dados/gen_seq_rand.txt").getAbsolutePath();
+        String outPutFile = new File("../../../dados/dadosTerceiraEntrega.txt").getAbsolutePath();
+
 
         File file = new File(outPutFile);
         boolean isFileEmpty = !file.exists() || file.length() == 0;
-        
+
+        ArquivoTesteFrequencia atf = new ArquivoTesteFrequencia();
+        atf.populateElementCount();
+
         CacheAlgorithm<String, String> cache;
         switch (cacheType) {
             case "FIFO":
