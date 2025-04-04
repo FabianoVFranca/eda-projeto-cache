@@ -47,7 +47,7 @@ public class ArquivoTesteFrequencia {
 
                 }
 
-                writer.write("Elementos Unicos\n");
+                writer.write("Elementos Distintos\n");
                 writer.write( ElementCount.size() + "\n");
 
 
