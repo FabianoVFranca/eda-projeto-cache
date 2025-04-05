@@ -27,7 +27,7 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
         this.tail.prev = this.head;
     }
 
-    // método responsável por adicionar um nó à dll no fim
+    // método responsável por adicionar um nó ao final da dll
     public void addLast(Node<K, V> node) {
         node.prev = this.tail.prev;
         node.next = this.tail;
@@ -41,7 +41,8 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
         node.prev.next = node.next;
     }
 
-    // método responsável de mover o dado mais usado para frente
+    // move um nó existente para o final da DLL (indicando que ele foi recentemente utilizado)
+    public void moveToTail(Node<K, V> node) {
     public void moveToTail(Node<K, V> node) {
         removeNode(node);
         addLast(node);
@@ -82,7 +83,7 @@ public class LRUCache<K, V> implements CacheAlgorithm<K, V> {
             addLast(newNode);
         }
     }
-
+    // remove o nó menos recentemente utilizado (LRU) do cache
     @Override
     public void eviction() {
         // capacidade máxima atingida e nó LRU é removido do cache para que o novo nó possa ser adicionado
