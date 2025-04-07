@@ -1,4 +1,4 @@
-package lfu.dll;
+package lfu;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

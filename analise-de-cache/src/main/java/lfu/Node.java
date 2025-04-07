@@ -1,4 +1,4 @@
-package lfu.dll;
+package lfu;
 
 public class Node<K, V> {
 

@@ -1,4 +1,4 @@
-package lfu.dll;
+package lfu;
 
 import cacheinterface.CacheAlgorithm;
 
