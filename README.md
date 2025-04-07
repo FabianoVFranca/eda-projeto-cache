@@ -50,15 +50,18 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 ```txt
 .
 ├── analise-de-cache
-│   ├── dados
-│   │   ├── dadosSaida.txt
-│   │   ├── dadosSaida2.txt
-│   │   ├── dadosSeqRand.txt
-│   │   ├── gen_graficos.py
-│   │   ├── gen_seq_rand.txt
-│   │   └── gen_sequence.txt
-│   ├── graficos
-│   │   └── grafico_de_comparacao.png
+│   ├── data
+│   │   ├── RandomizedWorkload.txt
+│   │   ├── RandomizedWorkloadOutput.txt
+│   │   ├── SequentialWorkload.txt
+│   │   ├── SequentialWorkloadOutput.txt
+│   │   └── WorkloadFootprint.txt
+│   ├── graphics
+│   │   ├── images
+│   │   │   ├── grafico_de_comparacao.png
+│   │   │   └── test.png
+│   │   └── scripts
+│   │      └── gen_graficos.py
 │   ├── src
 │   │   └── main
 │   │   │  └── java
@@ -67,12 +70,9 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 │   │   │      ├── fifo
 │   │   │      │   └── FIFOCache.java
 │   │   │      ├── lfu
-│   │   │      │   ├── dll
-│   │   │      │   │   ├── DoublyLinkedList.java
-│   │   │      │   │   ├── LFUCache.java
-│   │   │      │   │   └── Node.java
-│   │   │      │   └── linkedhash
-│   │   │      │       └── LFUCache.java
+│   │   │      │   ├── DoublyLinkedList.java
+│   │   │      │   ├── LFUCache.java
+│   │   │      │   └── Node.java
 │   │   │      ├── lru
 │   │   │      │   ├── LRUCache.java
 │   │   │      │   └── Node.java
@@ -83,12 +83,13 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 │   │          ├── fifo
 │   │          │   └── FIFOCacheTest.java
 │   │          ├── lfu
-│   │          │   ├── dll
-│   │          │   │   └── LFUCacheTest.java
-│   │          │   └── linkedhash
-│   │          │       └── LFUCacheTest.java
+│   │          │   └── LFUCacheTest.java
 │   │          └── lru
 │   │              └── LRUCacheTest.java
+│   ├── gradle
+│   │   └── wrapper
+│   │       ├── gradle-wrapper.jar
+│   │       └── gradle-wrapper.properties
 │   ├── .gitattributes
 │   ├── build.gradle
 │   ├── gradlew
