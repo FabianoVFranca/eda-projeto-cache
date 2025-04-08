@@ -1,4 +1,4 @@
-Quantidade de vezes que um elemento se repete na carga | quantidade de elementos unicos que se repetem 
+Quantidade de vezes que um elemento se repete na carga|Quantidade de elementos unicos que se repetem 
 1|37812
 2|9724
 3|5565

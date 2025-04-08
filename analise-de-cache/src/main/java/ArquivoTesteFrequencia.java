@@ -40,7 +40,7 @@ public class ArquivoTesteFrequencia {
             populateFrequencyCount();
 
             if(isFileEmpty){
-                writer.write("Quantidade de vezes que um elemento se repete na carga | quantidade de elementos unicos que se repetem \n");
+                writer.write("Quantidade de vezes que um elemento se repete na carga|Quantidade de elementos unicos que se repetem \n");
 
                 for (int key : this.FrequencyCount.keySet()) {
                     writer.write( key + "|" + FrequencyCount.get(key) +"\n");

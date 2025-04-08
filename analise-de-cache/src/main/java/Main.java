@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import cacheinterface.CacheAlgorithm;
 import fifo.FIFOCache;
-import lfu.dll.LFUCache;
+import lfu.LFUCache;
 import lru.LRUCache;
 
 public class Main {
