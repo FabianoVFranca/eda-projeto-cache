@@ -58,10 +58,14 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 │   │   └── WorkloadFootprint.txt
 │   ├── graphics
 │   │   ├── images
-│   │   │   ├── grafico_de_comparacao.png
-│   │   │   └── test.png
+│   │   │   ├── all_cache_comparative_plot.png
+│   │   │   ├── frequency_distribution_plot.png
+│   │   │   ├── unit_fifo_plot.png
+│   │   │   ├── unit_lfu_plot.png
+│   │   │   └── unit_lru_plot.png
 │   │   └── scripts
-│   │      └── gen_graficos.py
+│   │   │   ├── gen_graf_foot.png
+│   │       └── gen_graf.py
 │   ├── src
 │   │   └── main
 │   │   │  └── java
