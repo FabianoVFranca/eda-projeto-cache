@@ -10,6 +10,18 @@ import fifo.FIFOCache;
 import lfu.LFUCache;
 import lru.LRUCache;
 
+/**
+ * Classe principal que executa a simulação de estratégias de substituição de cache
+ * (FIFO, LFU, LRU) com base em um arquivo de trace contendo requisições de objetos.
+ *
+ * A aplicação recebe dois argumentos:
+ * <ul>
+ *     <li>Tipo do cache (FIFO, LFU, LRU)</li>
+ *     <li>Tamanho máximo do cache</li>
+ * </ul>
+ *
+ * O resultado da execução (hits, misses e hit ratio) é gravado em um arquivo de saída.
+ */
 public class Main {
     public static void main(String[] args) {
 
