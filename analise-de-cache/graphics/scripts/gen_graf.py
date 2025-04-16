@@ -14,16 +14,53 @@ df_lfu = df[df["Tipo do Cache"] == "LFU"]
 df_lru = df[df["Tipo do Cache"] == "LRU"]
 df_fifo = df[df["Tipo do Cache"] == "FIFO"]
 
+
+# gráfico comparativo de todas as políticas.
 plt.figure(figsize=(10, 6))
 plt.plot(df_lfu['Tamanho do Cache'], df_lfu['HitRatio'], marker='o', label='LFU')
 plt.plot(df_lru['Tamanho do Cache'], df_lru['HitRatio'], marker='o', label='LRU', color='orange')
 plt.plot(df_fifo['Tamanho do Cache'], df_fifo['HitRatio'], marker='o', label='FIFO', color='green')
-plt.title("Hit Ratio vs Tamanho do Cache para Diferentes Políticas")
-plt.xlabel("Tamanho do Cache")
+plt.title("Hit Ratio vs Capacidade do Cache para Diferentes Políticas")
+plt.xlabel("Capacidade do Cache")
 plt.ylabel("Hit Ratio (%)")
 plt.legend()
 plt.grid(True)
-plt.savefig('../images/cache_size_vs_hit_ratio_plot_all.png', dpi=300, bbox_inches='tight')
+plt.savefig('../images/all_cache_comparative_plot.png', dpi=300, bbox_inches='tight')
 plt.show()
 plt.close()
 
+# grafico unitário de LFU
+plt.figure(figsize=(10, 6))
+plt.plot(df_lfu['Tamanho do Cache'], df_lfu['HitRatio'], marker='o', label='LFU')
+plt.title("Hit Ratio vs Capacidade do Cache")
+plt.xlabel("Capacidade do Cache")
+plt.ylabel("Hit Ratio (%)")
+plt.legend()
+plt.grid(True)
+plt.savefig('../images/unit_lfu_plot.png', dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
+
+# grafico unitário de LRU
+plt.figure(figsize=(10, 6))
+plt.plot(df_lru['Tamanho do Cache'], df_lru['HitRatio'], marker='o', label='LRU', color='orange')
+plt.title("Hit Ratio vs Capacidade do Cache")
+plt.xlabel("Capacidade do Cache")
+plt.ylabel("Hit Ratio (%)")
+plt.legend()
+plt.grid(True)
+plt.savefig('../images/unit_lru_plot.png', dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
+
+# grafico unitário de FIFO
+plt.figure(figsize=(10, 6))
+plt.plot(df_fifo['Tamanho do Cache'], df_fifo['HitRatio'], marker='o', label='FIFO', color='green')
+plt.title("Hit Ratio vs Capacidade do Cache")
+plt.xlabel("Capacidade do Cache")
+plt.ylabel("Hit Ratio (%)")
+plt.legend()
+plt.grid(True)
+plt.savefig('../images/unit_fifo_plot.png', dpi=300, bbox_inches='tight')
+plt.show()
+plt.close()
