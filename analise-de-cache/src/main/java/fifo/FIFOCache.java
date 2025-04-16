@@ -16,7 +16,7 @@ public class FIFOCache<K,V> implements CacheAlgorithm<K, V> {
     private int head;        // Índice do primeiro elemento
     private int tail;        // Índice do último elemento
     private int size;        // Tamanho atual do cache
-    private Map<K, V> mapSearch;
+    private Map<K, V> mapSearch; // HashMap auxiliar para procura de Objetos
 
     /**
      * Construtor da classe FIFOCache.
