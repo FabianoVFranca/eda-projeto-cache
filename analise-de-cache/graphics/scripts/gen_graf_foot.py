@@ -1,8 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from matplotlib.ticker import ScalarFormatter
-
 
 sns.set_style("whitegrid")
 plt.rcParams['font.family'] = 'DejaVu Sans'  # Fonte mais legível
