@@ -1,9 +1,15 @@
-package lfu.dll;
+package lfu;
 
 import cacheinterface.CacheAlgorithm;
-
 import java.util.HashMap;
 
+/**
+ * Implementação do algoritmo de cache LFU (Least Frequently Used).
+ * Elementos com menor frequência de uso são removidos primeiro quando o cache atinge sua capacidade.
+ *
+ * @param <K> Tipo da chave.
+ * @param <V> Tipo do valor.
+ */
 public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
 
     private final int capacity;  // capacidade do cache
@@ -11,6 +17,11 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
     private HashMap<K, Node<K, V>> cache;  // mapeia a chave ao nó que contem a chave e o valor
     private HashMap<Integer, DoublyLinkedList<K, V>> freqMap;  // mapeia a frêquencia de uso as suas respectivas listas
 
+    /**
+     * Construtor do cache LFU.
+     *
+     * @param capacity Capacidade máxima de elementos que o cache pode armazenar.
+     */
     public LFUCache(int capacity) {
         this.capacity = capacity;
         this.minFreq = 0;
@@ -20,6 +31,13 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
         this.freqMap = new HashMap<>();
     }
 
+    /**
+     * Recupera o valor associado à chave fornecida.
+     * Caso exista, atualiza a frequência de acesso.
+     *
+     * @param key Chave do elemento a ser recuperado.
+     * @return Valor associado à chave, ou null se não estiver presente (cache miss).
+     */
     @Override
     public V get(K key) {
         if (this.cache.containsKey(key)) {
@@ -31,6 +49,13 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
         return null;  // o elemento buscado não está no cache, cache miss
     }
 
+    /**
+     * Insere ou atualiza um valor no cache.
+     * Se o cache estiver cheio, remove o elemento com menor frequência de uso.
+     *
+     * @param key   Chave do elemento.
+     * @param value Valor do elemento.
+     */
     @Override
     public void put(K key, V value) {
         // atualiza o valor e a frequencia do nó
@@ -59,6 +84,9 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
         }
     }
 
+    /**
+     * Remove o elemento com menor frequência de uso (e menos recentemente usado entre eles).
+     */
     @Override
     public void eviction() {
         DoublyLinkedList<K, V> list = this.freqMap.get(this.minFreq);
@@ -71,6 +99,11 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
         }
     }
 
+    /**
+     * Atualiza a frequência de uso de um determinado nó.
+     *
+     * @param node Nó cujo uso foi atualizado.
+     */
     private void updateFreq(Node<K, V> node) {
         int freq = node.freq;
         this.freqMap.get(freq).remove(node);
@@ -90,6 +123,11 @@ public class LFUCache<K, V> implements CacheAlgorithm<K, V> {
         this.freqMap.get(node.freq).addToFront(node);
     }
 
+    /**
+     * Representação textual do estado atual do cache.
+     *
+     * @return String representando os elementos no cache com suas frequências.
+     */
     @Override
     public String toString() {
         String out = "CACHE:\n";

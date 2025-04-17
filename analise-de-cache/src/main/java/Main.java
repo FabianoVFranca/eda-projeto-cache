@@ -7,9 +7,19 @@ import java.io.IOException;
 
 import cacheinterface.CacheAlgorithm;
 import fifo.FIFOCache;
-import lfu.dll.LFUCache;
+import lfu.LFUCache;
 import lru.LRUCache;
 
+/**
+ * Classe principal que executa a simulação de estratégias de substituição de cache
+ * (FIFO, LFU, LRU) com base em um arquivo de trace contendo requisições de objetos.
+ *
+ * A aplicação recebe dois argumentos:
+ *     Tipo do cache (FIFO, LFU, LRU)
+ *     Tamanho máximo do cache
+ *
+ * O resultado da execução (hits, misses e hit ratio) é gravado em um arquivo de saída.
+ */
 public class Main {
     public static void main(String[] args) {
 
@@ -18,28 +28,33 @@ public class Main {
             System.out.println("Uso: java Main <tipo_cache> <tamanho_cache>");
             return;
         }
-
+        String cacheString = "";
         int hit = 0;
         int miss = 0;
         String cacheType = args[0].toUpperCase();  // Recebe da linha de comando os args
         int tamanhoCache = Integer.parseInt(args[1]);
-        
-        String traceFile = System.getProperty("user.dir") + "/dados/gen_seq_rand.txt";
-        String outPutFile = System.getProperty("user.dir") + "/dados/dadosSaida2.txt";
+
+        String traceFile = new File("data/RandomizedWorkload.txt").getAbsolutePath();
+        String outPutFile = new File("data/OutputFile.txt").getAbsolutePath();
+
 
         File file = new File(outPutFile);
         boolean isFileEmpty = !file.exists() || file.length() == 0;
-        
+
+
         CacheAlgorithm<String, String> cache;
         switch (cacheType) {
             case "FIFO":
                 cache = new FIFOCache<>(tamanhoCache);
+                cacheString = "FIFO"; 
                 break;
             case "LFU":
                 cache = new LFUCache<>(tamanhoCache);
+                cacheString = "LFU";
                 break;
             case "LRU":
                 cache = new LRUCache<>(tamanhoCache);
+                cacheString = "LRU";
                 break;
             default:
                 System.out.println("Tipo de cache inválido. Use FIFO, LFU ou LRU.");
@@ -51,7 +66,7 @@ public class Main {
         try (BufferedReader reader = new BufferedReader(new FileReader(traceFile));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outPutFile,true))) {
                     if (isFileEmpty)
-                        writer.write("Tamanho do Cache | Total Hits | Total Misses | HitRatio\n");
+                        writer.write("Tamanho do Cache|Total Hits|Total Misses|HitRatio|Tipo do Cache\n");
             
             String line;
             while ((line = reader.readLine()) != null) {
@@ -75,7 +90,7 @@ public class Main {
             // Formatação do hitRatio para exibir como porcentagem
             String hitRatioFormatted = String.format("%.2f", hitRatio * 100); // Multiplica por 100 para exibir como porcentagem
 
-            writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatioFormatted + "\n");
+            writer.write(tamanhoCache + "|" + hit + "|" + miss + "|" + hitRatioFormatted + "|"+ cacheString + "\n");
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
