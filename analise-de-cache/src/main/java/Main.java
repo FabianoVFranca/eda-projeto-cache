@@ -15,10 +15,8 @@ import lru.LRUCache;
  * (FIFO, LFU, LRU) com base em um arquivo de trace contendo requisições de objetos.
  *
  * A aplicação recebe dois argumentos:
- * <ul>
- *     <li>Tipo do cache (FIFO, LFU, LRU)</li>
- *     <li>Tamanho máximo do cache</li>
- * </ul>
+ *     Tipo do cache (FIFO, LFU, LRU)
+ *     Tamanho máximo do cache
  *
  * O resultado da execução (hits, misses e hit ratio) é gravado em um arquivo de saída.
  */
