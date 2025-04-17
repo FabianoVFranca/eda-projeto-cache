@@ -52,7 +52,7 @@ Tipos de cache: < FIFO, LFU, LRU >
 gradle run --args="<Tipo cache> <Capacidade do cache>" 
 ```
 
-##Plotagem de gráfico
+## Plotagem de gráfico
  
 - Os gráficos são gerados no diretório graphics/script
 ```sh
