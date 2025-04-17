@@ -21,7 +21,7 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
 ## Explicação sobre a organização do experimento:
 ### Carga de trabalho
-- Arquivos de carga presentes no diretório ```data```:
+- Arquivos de dados presentes no diretório ```data```:
 
   - ```SequentialWorkload.txt```: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
 
