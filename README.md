@@ -25,24 +25,24 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
   - ```SequentialWorkload.txt```: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
 
-  - ```RandomizedWorkload.txt```: contém a mesma carga, mas com as linhas randomizadas a partir do comando shuf SequentialWorkload.txt.
+  - ```RandomizedWorkload.txt```: contém a mesma carga presente em ```SequentialWorkload.txt```, mas com as linhas randomizadas a partir do comando em terminal ```shuf SequentialWorkload.txt```.
 
-  - ```SequentialWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em gen_Seq.txt. Neste caso, o hitRatio é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
+  - ```SequentialWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em ```SequentialWorkload.txt```. Neste caso, o _hit ratio_ é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
 
-  - ```RandomizedWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em RandomizedWorkload.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
+  - ```RandomizedWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em ```RandomizedWorkload.txt```. Este arquivo foi o utilizado para a plotagem dos gráficos, pois o comportamento da taxa de _hit ratio_ pode ser interpretado de forma mais clara e consistente.
  
 ### Implementação
 - Arquivos contidos no package ```src```:
 
-  - ```CacheAlgorithm.java```: corresponde a implementação da interface Cache para abstrair a lógica de evicção (CacheEviction) usada no main.
+  - ```CacheAlgorithm.java```: corresponde a implementação da _interface_ para abstrair a lógica de evicção (_CacheEviction_) usada no ```Main```.
 
-  - ```CacheEvictionStrategy.java```: é a classe responsável por ser chamada pelo Main.java para calcular as métricas de miss e hit, independentemente do tipo de cache utilizado. assim é possível implementar o padrão de projeto _Strategy_.
+  - ```CacheEvictionStrategy.java```: é a classe responsável por ser chamada pelo ```Main.java``` para calcular as métricas de _miss_ e _hit_, independentemente do tipo de cache utilizado, assim é possível implementar o padrão de projeto _Strategy_.
 
-  - ```Main.java```: é a classe principal que recebe os dados de entrada, invoca o CacheEvictionStrategy.java e escreve os dados de saída em um novo arquivo, recebendo a chave (política de cache a ser usada) e valor (capaciade do cache) do dado armazenado para o cachePolicy.
+  - ```Main.java```: é a classe principal que recebe os dados de entrada, invoca o ```CacheEvictionStrategy.java``` e escreve os dados de saída em um novo arquivo, recebendo a chave (política de cache a ser usada) e valor (capaciade do cache) do dado armazenado para o cachePolicy como argumentos.
 
-  - ```FootprintMeter.java```: é a classe responsável por medir o footprint da carga.
+  - ```FootprintMeter.java```: é a classe responsável por medir o _footprint_ da carga.
   
-  - ```FIFOCache.java```,  ```LRUCache.java``` e ```LFUCache.java```: todos os três algoritmos distintos implementam a interface CacheAlgorithm, assim facilitando o uso do CacheEvictionStrategy.
+  - ```FIFOCache.java```,  ```LRUCache.java``` e ```LFUCache.java```: todos os três algoritmos distintos implementam a _interface_ ```CacheAlgorithm.java```, assim facilitando o uso do ```CacheEvictionStrategy.java```.
 
   - **Testes**: o diretório conta com um conjunto de testes para validar as três implementações dos algoritmos modularizados para cada tipo.
 
