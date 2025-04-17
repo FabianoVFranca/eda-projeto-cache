@@ -21,28 +21,30 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
 ## Explicação sobre a organização do experimento:
 ### Carga de trabalho
-- A carga gerada para a análise está presente no diretório data:
+- Arquivos de carga presentes no diretório ```data```:
 
-  - SequentialWorkload.txt: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
+  - ```SequentialWorkload.txt```: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
 
-  - RandomizedWorkload.txt: contém a mesma carga, mas com as linhas randomizadas a partir do comando shuf SequentialWorkload.txt.
+  - ```RandomizedWorkload.txt```: contém a mesma carga, mas com as linhas randomizadas a partir do comando shuf SequentialWorkload.txt.
 
-  - SequentialWorkloadOutput.txt: corresponde aos resultados obtidos a partir da carga presente em gen_Seq.txt. Neste caso, o hitRatio é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
+  - ```SequentialWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em gen_Seq.txt. Neste caso, o hitRatio é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
 
-  - RandomizedWorkloadOutput.txt: corresponde aos resultados obtidos a partir da carga presente em RandomizedWorkload.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
+  - ```RandomizedWorkloadOutput.txt```: corresponde aos resultados obtidos a partir da carga presente em RandomizedWorkload.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
  
 ### Implementação
-- Dentro do package de src temos os arquivos:
+- Arquivos contidos no package ```src```:
 
-  - CacheAlgorithm: É a implementação da interface Cache para abstrair a lógica de evicção (CacheEviction) usada no main.
+  - ```CacheAlgorithm.java```: corresponde a implementação da interface Cache para abstrair a lógica de evicção (CacheEviction) usada no main.
 
-  - CacheEvictionStrategy: Responsável por ser chamado pela função main para calcular as métricas de miss e hit, independentemente do tipo de cache utilizado. com isto nao é necessário refatorar o main para cada estratégia.
+  - ```CacheEvictionStrategy.java```: é a classe responsável por ser chamada pelo Main.java para calcular as métricas de miss e hit, independentemente do tipo de cache utilizado. assim é possível implementar o padrão de projeto _Strategy_.
 
-  - Main: Recebe os dados de entrada, invoca o CacheEvictionStrategy e escreve os dados de saída em um novo arquivo, recebemos a chave e valor do dado armazenado para o cachePolicy.
+  - ```Main.java```: é a classe principal que recebe os dados de entrada, invoca o CacheEvictionStrategy.java e escreve os dados de saída em um novo arquivo, recebendo a chave (política de cache a ser usada) e valor (capaciade do cache) do dado armazenado para o cachePolicy.
 
-  - Implementações dos algoritmos: Três implementações distintas que implementam a interface CacheAlgorithm sendo eles FIFO,LFU e LRU(a LRU foi implementada duas vezes, a escolhida para o experimento foi usada com dll).
+  - ```FootprintMeter.java```: é a classe responsável por medir o footprint da carga.
+  
+  - ```FIFOCache.java```,  ```LRUCache.java``` e ```LFUCache.java```: todos os três algoritmos distintos implementam a interface CacheAlgorithm, assim facilitando o uso do CacheEvictionStrategy.
 
-  - Testes: a pasta conta com um conjunto de testes para validar as três implementações dos algoritmos modularizados para cada tipo.
+  - **Testes**: o diretório conta com um conjunto de testes para validar as três implementações dos algoritmos modularizados para cada tipo.
 
 ## Rodando o Main
 Primeiro, é nescessário digitar o seguinte comando a partir do root para estar dentro do diretório analise-de-cache antes de rodar o Main
