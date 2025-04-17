@@ -44,7 +44,7 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
 ## Como executar:
 
-- Para rodar o Main, é nescessário estar dentro do diretório análise-de-cache e rodar o comando:
+Para rodar o Main, é nescessário estar dentro do diretório análise-de-cache e rodar o comando:
 
 Tipos de cache: < FIFO, LFU, LRU >
 
@@ -53,8 +53,8 @@ gradle run --args="<Tipo cache> <Capacidade do cache>"
 ```
 
 ## Plotagem de gráfico
- 
-- Os gráficos são gerados no diretório graphics/script para plotar use o comando:
+
+Os gráficos são gerados no diretório graphics/script para plotar use o comando:
 ```sh
 python3 gen_graf.py & python3 gen_graf_foot.py
 ```
@@ -65,6 +65,7 @@ Os arquivos de imagens gerados serão direcionados para graphics/images no qual 
 .
 ├── analise-de-cache
 │   ├── data
+│   │   ├── OutputFile.txt
 │   │   ├── RandomizedWorkload.txt
 │   │   ├── RandomizedWorkloadOutput.txt
 │   │   ├── SequentialWorkload.txt
@@ -78,7 +79,7 @@ Os arquivos de imagens gerados serão direcionados para graphics/images no qual 
 │   │   │   ├── unit_lfu_plot.png
 │   │   │   └── unit_lru_plot.png
 │   │   └── scripts
-│   │   │   ├── gen_graf_foot.png
+│   │       ├── gen_graf_foot.png
 │   │       └── gen_graf.py
 │   ├── src
 │   │   └── main
@@ -94,8 +95,9 @@ Os arquivos de imagens gerados serão direcionados para graphics/images no qual 
 │   │   │      ├── lru
 │   │   │      │   ├── LRUCache.java
 │   │   │      │   └── Node.java
-│   │   │      ├── Main.java
-│   │   │      └── CacheEvictionStrategy.java
+│   │   │      ├── CacheEvictionStrategy.java
+│   │   │      ├── FootPrintMeter.java
+│   │   │      └── Main.java
 │   │   └── test
 │   │      └── java
 │   │          ├── fifo
