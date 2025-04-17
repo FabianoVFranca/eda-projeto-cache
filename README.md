@@ -54,7 +54,7 @@ gradle run --args="<Tipo cache> <Capacidade do cache>"
 
 ## Plotagem de gráfico
  
-- Os gráficos são gerados no diretório graphics/script
+- Os gráficos são gerados no diretório graphics/script para plotar use o comando:
 ```sh
 python3 gen_graf.py & python3 gen_graf_foot.py
 ```
