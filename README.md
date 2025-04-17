@@ -45,6 +45,18 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Plotagem de gráfico
  
 - Os gráficos são gerados no diretório graphics. Esse diretório também contém a pasta script, responsável por gerar os gráficos e salvá-los no próprio diretório images
+
+## Como executar:
+
+- Para rodar o Main, é nescessário estar dentro do diretório análise-de-cache e rodar o comando:
+
+Tipos de cache: < FIFO, LFU, LRU >
+
+```sh
+gradle run --args="<Tipo cache> <Capacidade do cache>" 
+```
+
+O arquivo de saída será direcionado para o diretório data em OutputFile.txt
   
 ### Esse repositório está organizado da seguinte forma:
 ```txt
