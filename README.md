@@ -20,7 +20,7 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
 
 ## Explicação sobre a organização do experimento:
-### Carga de trabalho
+### Carga de trabalho e resultados obtidos
 - Arquivos de dados presentes no diretório ```data```:
 
   - ```SequentialWorkload.txt```: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
