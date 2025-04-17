@@ -20,15 +20,15 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
 
 ## Explicação sobre organização do experimento:
-- A carga gerada para a análise está presente em dois arquivos:
+- A carga gerada para a análise está presente no diretório data:
 
-  - gen_Seq.txt: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
+  - SequentialWorkload.txt: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
 
-  - gen_seq_rand.txt: contém a mesma carga, mas com as linhas randomizadas a partir do comando shuf gen_Seq.txt gen_seq_rand.txt.
+  - RandomizedWorkload.txt: contém a mesma carga, mas com as linhas randomizadas a partir do comando shuf SequentialWorkload.txt.
 
-  - dadosSaida.txt: corresponde aos resultados obtidos a partir da carga presente em gen_Seq.txt. Neste caso, o hitRatio é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
+  - SequentialWorkloadOutput.txt: corresponde aos resultados obtidos a partir da carga presente em gen_Seq.txt. Neste caso, o hitRatio é maior desde o início devido à formatação sequencial dos dados pela forma de criação da carga.
 
-  - dadosSaida2.txt: corresponde aos resultados obtidos a partir da carga presente em gen_seq_rand.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
+  - RandomizedWorkloadOutput.txt: corresponde aos resultados obtidos a partir da carga presente em RandomizedWorkload.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
  
 - Dentro do package de src temos os arquivos:
 
@@ -44,7 +44,7 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
 - Plotagem de gráfico
  
-  - O gráfico gerado está salvo no diretório gráficos com o nome gráfico_de_comparação, nele temos a representação no eixo X do HitRatio de cada política em porcentagem, no eixo X temos o tamanho do cache usado para implementar cada tipo de cache.
+- Os gráficos são gerados no diretório graphics. Esse diretório também contém a pasta script, responsável por gerar os gráficos e salvá-los no próprio diretório images
   
 ### Esse repositório está organizado da seguinte forma:
 ```txt
@@ -58,10 +58,14 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 │   │   └── WorkloadFootprint.txt
 │   ├── graphics
 │   │   ├── images
-│   │   │   ├── grafico_de_comparacao.png
-│   │   │   └── test.png
+│   │   │   ├── all_cache_comparative_plot.png
+│   │   │   ├── frequency_distribution_plot.png
+│   │   │   ├── unit_fifo_plot.png
+│   │   │   ├── unit_lfu_plot.png
+│   │   │   └── unit_lru_plot.png
 │   │   └── scripts
-│   │      └── gen_graficos.py
+│   │   │   ├── gen_graf_foot.png
+│   │       └── gen_graf.py
 │   ├── src
 │   │   └── main
 │   │   │  └── java

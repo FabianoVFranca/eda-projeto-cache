@@ -3,11 +3,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 //mudar nomes das variaveis e metodos , apenas mockup da logica
-public class ArquivoTesteFrequencia {
+public class FootPrintMeter {
     private Map<String, Integer> ElementCount;
     private Map<Integer, Integer> FrequencyCount;
 
-    ArquivoTesteFrequencia() {
+    FootPrintMeter() {
         ElementCount = new HashMap<String, Integer>();
         FrequencyCount = new HashMap<Integer, Integer>();
     }
@@ -27,12 +27,13 @@ public class ArquivoTesteFrequencia {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] element = line.split(",");
-                String keyCarga = element[1];
 
-                if(!ElementCount.containsKey(keyCarga)){
-                    ElementCount.put(keyCarga,1);
+                String keyLoad = element[1];
+
+                if(!ElementCount.containsKey(keyLoad)){
+                    ElementCount.put(keyLoad,1);
                 }else{
-                    ElementCount.put(keyCarga,ElementCount.get(keyCarga) + 1);
+                    ElementCount.put(keyLoad,ElementCount.get(keyLoad) + 1);
                 }
 
             }
@@ -63,7 +64,7 @@ public class ArquivoTesteFrequencia {
     public void populateFrequencyCount() {
         for (Integer v : ElementCount.values()) {
             if (!FrequencyCount.containsKey(v)) {
-                FrequencyCount.put(v, 1); // Alterado para iniciar com 1 em vez de 0
+                FrequencyCount.put(v, 1);
             } else {
                 FrequencyCount.put(v, FrequencyCount.get(v) + 1);
             }
