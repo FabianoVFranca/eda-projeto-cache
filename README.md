@@ -42,23 +42,27 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
   - Testes: a pasta conta com um conjunto de testes para validar as três implementações dos algoritmos modularizados para cada tipo.
 
-## Como executar:
-
-Para rodar o Main, é nescessário estar dentro do diretório análise-de-cache e rodar o comando:
-
-Tipos de cache: < FIFO, LFU, LRU >
-
+## Rodando o Main
+Primeiro, é nescessário digitar o seguinte comando a partir do root para estar dentro do diretório analise-de-cache antes de rodar o Main
+```sh
+cd analise-de-cache 
+```
+Em seguida, digite o comando abaixo na linha de terminal considerando tipo de cache: ```FIFO```, ```LFU``` ou ```LRU```:
 ```sh
 gradle run --args="<Tipo cache> <Capacidade do cache>" 
 ```
 
-## Plotagem de gráfico
+## Plotando os gráficos
 
-Os gráficos são gerados no diretório graphics/script para plotar use o comando:
+Para poder rodar o script feito, deve-se estar em graphics/script, logo, digite o seguinte comando no terminal a partir de root:
+```sh
+cd analise-de-cache/graphics/script
+```
+Em seguida, para plotar os gráficos use o comando:
 ```sh
 python3 gen_graf.py & python3 gen_graf_foot.py
 ```
-Os arquivos de imagens gerados serão direcionados para graphics/images no qual estará localizado os plots.
+Os arquivos de imagens gerados serão direcionados para graphics/images no qual ficarão armazenados.
 
 ### Esse repositório está organizado da seguinte forma:
 ```txt
