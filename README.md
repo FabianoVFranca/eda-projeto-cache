@@ -19,7 +19,8 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 - Quando um novo dado precisa ser armazenado, o item que não foi utilizado há mais tempo é removido.
 - Essa abordagem é baseada na suposição de que os dados que foram utilizados recentemente têm uma maior probabilidade de serem acessados novamente em um futuro próximo.
 
-## Explicação sobre organização do experimento:
+## Explicação sobre a organização do experimento:
+### Carga de trabalho
 - A carga gerada para a análise está presente no diretório data:
 
   - SequentialWorkload.txt: contém a carga organizada de forma sequencial com tamanho de 150000 dados a serem armazenados.
@@ -30,6 +31,7 @@ Existem diversas políticas de cache, cada uma com regras específicas para deci
 
   - RandomizedWorkloadOutput.txt: corresponde aos resultados obtidos a partir da carga presente em RandomizedWorkload.txt. Este arquivo foi utilizado para a plotagem do gráfico, pois o comportamento da taxa de hitRatio pode ser interpretado de forma mais clara e consistente.
  
+### Implementação
 - Dentro do package de src temos os arquivos:
 
   - CacheAlgorithm: É a implementação da interface Cache para abstrair a lógica de evicção (CacheEviction) usada no main.
